@@ -1,0 +1,103 @@
+<Window
+	x:Class="QNAutoTask.AssistWindow.WndAssist" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="clr-namespace:QNAutoTask.AssistWindow" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:fa="clr-namespace:BotLib.Wpf.Controls;assembly=BotLib" 
+    xmlns:sb="clr-namespace:Delay;assembly=SplitButtonWpf"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	Title="千牛催付、回访、核对地址、自动发货" WindowStartupLocation="CenterScreen" Width="1200" Height="800">
+    <Grid>        
+        <Grid Name="grdData">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width=" 300"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10" Grid.Row="0" Grid.Column="1">
+                <TextBlock VerticalAlignment="Center" Text="千牛号：">
+                </TextBlock>
+                <ComboBox Name="txtQns" Width="150" Height="20" ></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10" Grid.Row="0" Grid.Column="2">
+                <TextBlock VerticalAlignment="Center" Text="拍单时间：">
+                </TextBlock>
+                <DatePicker Name="txtStartDate" Width="100" Height="20"></DatePicker>
+                <TextBlock Text="~"/>
+                <DatePicker Name="txtEndDate" Width="100" Height="20"></DatePicker>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0" Grid.Row="0" Grid.Column="3">
+                <Button Name="btnRefresh" HorizontalAlignment="Left" Content="搜索订单" Width="100" Height="25"  Click="btnRefresh_Click"></Button>
+                <Button Name="btnSendMsg" HorizontalAlignment="Left" Content="发送消息" Width="100" Height="25"  Margin="10 0 0 0" Click="btnSendMsg_Click"></Button>
+            </StackPanel>
+
+            <Button Name="btnReward" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Left" Content="支持作者" Width="100" Height="25" Click="btnReward_Click" ></Button>
+            <Grid
+			Name="grdWaiting" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+			Background="#FFFFFFFF"
+			Visibility="Collapsed">
+                <ProgressBar
+				Height="20"
+				Margin="20"
+				IsIndeterminate="True" />
+            </Grid>
+            <Grid
+			Name="grdNoDataTip" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+			Background="#FFFFFFFF"
+			Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition
+					Height="auto" />
+                    <RowDefinition
+					Height="auto" />
+                    <RowDefinition
+					Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+				Grid.Row="1"
+				FontSize="20"
+				HorizontalAlignment="Center"
+				Text="最近三个月没有订单" />
+            </Grid>
+            <DataGrid x:Name="dtCtrl" ColumnWidth="*" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header=" " Width="30">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Click="chkSelectTrade_Click" Tag="{Binding TidStr}"></CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="单号" Width="160" Binding="{Binding TidStr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="昵称" Width="120" Binding="{Binding BuyerNick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="支付金额" Width="80" Binding="{Binding Payment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="支付时间" Width="120" Binding="{Binding PayTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="姓名" Width="80" Binding="{Binding ReceiverName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="手机" Width="120" Binding="{Binding ReceiverMobile, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="省份" Width="60" Binding="{Binding ReceiverState, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="勾选模板消息，优先发送模板消息" Foreground="Red" Margin="5 10"/>
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <TextBlock Text="消息内容：" Margin="5 10">
+                </TextBlock>
+                <TextBox Name="txtMsg" TextWrapping="Wrap" Height="200"></TextBox>
+                <CheckBox Name="chkSendTemplateMsg" Content="发送模板消息" Margin="5 10"></CheckBox>
+                <TextBox Name="txtMsgTemplate" TextWrapping="Wrap" Text="{}亲，请您核对地址信息：{姓名}-{电话}-{省}{市}{区}{镇}{详细地址}" Height="200"></TextBox>
+                <CheckBox Name="chkAutoSendGoods" Content="虚拟产品自动发货" Margin="5 10"></CheckBox>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Window>
