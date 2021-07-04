@@ -20,9 +20,8 @@
 5、勾选要催付的订单，填写消息内容，点击发送消息按钮
 
 网盘地址
-
 链接：https://pan.baidu.com/s/1P6QZePTY6RSxdoUI9jYqLw 
-
 提取码：6666 
 
+# 打赏作者
 ![打赏作者](https://github.com/renchengxiaofeixia/QNAutoTask/blob/main/src/QNAutoTask/Asset/image/reward.jpg)
